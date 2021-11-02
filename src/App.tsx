@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ReactElement, Suspense } from "react";
+import Home from "./pages/Home";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Products from "./pages/Products";
+import NotFound from "./pages/NotFound";
 
-function App() {
+interface Props {}
+
+export default function App({}: Props): ReactElement {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Suspense fallback={<div>Loding</div>}>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/products">
+            <Products />
+          </Route>
+          <Route component={NotFound} />
+        </Switch>
+      </Suspense>
+    </Router>
   );
 }
-
-export default App;
